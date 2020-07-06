@@ -1,7 +1,7 @@
 CREATE DATABASE campgrounds;
 
 CREATE TABLE t_routeList (
-	routeId INT NOT NULL AUTO_INCREMENT,
+	routeId SERIAL,
 	routeName VARCHAR NOT NULL,
 	PRIMARY KEY (routeId)
 );
@@ -12,7 +12,7 @@ VALUES ('3-day, 2-night'),
 ('5-day, 4-night');
 
 CREATE TABLE t_campsites (
-	campsiteId INT NOT NULL AUTO_INCREMENT,
+	campsiteId SERIAL,
 	campsiteName VARCHAR(50) NOT NULL,
 	PRIMARY KEY (campsiteId)
 );
@@ -33,7 +33,7 @@ CREATE TABLE t_availability (
 	campsiteId INT NOT NULL,
 	bookDate DATE NOT NULL,
 	isBooked BOOLEAN DEFAULT 'FALSE',
-	PRIMARY KEY (campsiteId,date)
+	PRIMARY KEY (campsiteId, bookDate)
 );
 
 INSERT INTO t_availability (campsiteId, bookDate, isBooked)
@@ -125,7 +125,7 @@ CREATE TABLE t_routeInfo (
 	dayNumber INT NOT NULL,
 	campsiteId INT NOT NULL,
 	description VARCHAR,
-	PRIMARY KEY (routeId,dayNumber)
+	PRIMARY KEY (routeId, dayNumber)
 );
 
 INSERT INTO t_routeInfo (routeId, dayNumber, campsiteId, description)
