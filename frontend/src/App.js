@@ -55,9 +55,9 @@ const RouteCampgrounds = () => {
 const App = () => {
   const [routesShown, setRoutesShown] = useState('')
 
-  function setDisplayList(e) {
-    setRoutesShown(e.target.value)
-  }
+  // function setDisplayList(e) {
+  //   setRoutesShown(e.target.value)
+  // }
 
 
   return (
