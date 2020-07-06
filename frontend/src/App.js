@@ -55,6 +55,7 @@ const RouteCampgrounds = (props) => {
 const App = () => {
   const [routesShown, setRoutesShown] = useState('')
 
+  // this function would switch which list is displayed under the map (currently selected, or just all of the potential routes)
   // function setDisplayList(e) {
   //   setRoutesShown(e.target.value)
   // }
