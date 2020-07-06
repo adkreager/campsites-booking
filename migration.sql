@@ -1,3 +1,5 @@
+CREATE DATABASE campgrounds;
+
 CREATE TABLE t_routeList (
 	routeId INT NOT NULL AUTO_INCREMENT,
 	routeName VARCHAR NOT NULL,
