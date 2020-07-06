@@ -1,10 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 3001
 const queries = require('./queries')
+const cors = require('cors')
 
 app.use(bodyParser.json())
+app.use(cors())
 app.use(
     bodyParser.urlencoded({
         extended: true,
@@ -20,5 +22,6 @@ app.get('/', (request, response) => {
 })
 
 app.get('/routes', queries.getRoutes)
-app.get('/:date', queries.checkDateAvailability)
-app.put('/book', queries.updateBooking)
+app.get('/routeinfo', queries.getRouteInfo)
+app.get('/campsites', queries.getCampsites)
+app.get('/availability', queries.getAvailability)
