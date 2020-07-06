@@ -19,9 +19,6 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
+app.get('/routes', queries.getRoutes)
 app.get('/:date', queries.checkDateAvailability)
 app.put('/book', queries.updateBooking)
-// app.get('students/:studentId', queries.getStudentById)
-// app.get('student?search=', queries.getStudentByName)
-// app.post('/grade', queries.addGrade)
-// app.post('/register', queries.addStudent)
