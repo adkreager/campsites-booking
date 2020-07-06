@@ -3,14 +3,14 @@ import placeholder from './placeholder.jpg'
 import './App.css';
 
 //Map of Yellowstone, hoping to apply map html and display routes on map
-const Map = () => {
+const Map = (props) => {
   return (
     <img src={placeholder} alt="Map of Yellowstone National Park" />
   )
 }
 
 //Displays all of the potential routes you could take, and the stops you could make
-const RoutesList = () => {
+const RoutesList = (props) => {
   return (
     <ul>
 
@@ -18,7 +18,7 @@ const RoutesList = () => {
   )
 }
 
-const DateSelection = () => {
+const DateSelection = (props) => {
   return (
     <div>
       <label for="dates">Plan your trip...</label>
@@ -32,7 +32,7 @@ const DateSelection = () => {
 }
 
 //Displays one campground list item
-const Campground = () => {
+const Campground = (props) => {
   return (
     <li>
       <button type='button'>Book now!</button>
@@ -44,7 +44,7 @@ const Campground = () => {
 }
 
 //Displays all of the campground list items contained in a single route
-const RouteCampgrounds = () => {
+const RouteCampgrounds = (props) => {
   return (
     <ul>
       {/* ALL THE CAMPGROUNDS IN THAT ROUTE WILL BE IN THIS LIST */}
