@@ -49,6 +49,7 @@ const getAvailability = (request, response) => {
     })
 }
 
+//GETS ROUTE FOR A SPECIFIC ROUTE
 const getSpecificRouteInfo = (request, response) => {
     let id = request.params.id
 
@@ -60,6 +61,7 @@ const getSpecificRouteInfo = (request, response) => {
     })
 }
 
+//UPDATES THE isBooked FOR CAMPSITES ON DATES ALONG A ROUTE
 const bookCampRoute = (request, response) => {
     const id = parseInt(request.body)
     connection.query("UPDATE t_availability SET isBooked='true' WHERE")
