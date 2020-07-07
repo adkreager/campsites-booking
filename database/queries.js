@@ -60,10 +60,16 @@ const getSpecificRouteInfo = (request, response) => {
     })
 }
 
+const bookCampRoute = (request, response) => {
+    const id = parseInt(request.body)
+    connection.query("UPDATE t_availability SET isBooked='true' WHERE")
+}
+
 module.exports = {
     getRoutes,
     getRouteInfo,
     getCampsites,
     getAvailability,
-    getSpecificRouteInfo
+    getSpecificRouteInfo,
+    bookCampRoute
 }
