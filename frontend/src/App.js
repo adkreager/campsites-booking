@@ -70,8 +70,8 @@ class App extends React.Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this)
   }
 
-  fetchRoutes() {
-    fetch('http://localhost:3001/routes')
+  async fetchRoutes() {
+    await fetch('http://localhost:3001/routes')
       .then((response) => response.json())
       .then((json) => { this.setState({ routes: json }) })
   }
