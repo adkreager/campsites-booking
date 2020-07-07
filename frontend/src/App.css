@@ -12,3 +12,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+ul {
+  list-style-type: none;
+}
+
+#park-map {
+  max-height: 35vh;
+}
