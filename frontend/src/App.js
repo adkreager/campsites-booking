@@ -22,25 +22,18 @@ const DateSelection = (props) => {
 //Map of Yellowstone, hoping to apply map html and display routes on map
 const Map = (props) => {
   return (
-    <img src={yellowstone} alt="Map of Yellowstone National Park" />
+    <img src={yellowstone} alt="Map of Yellowstone National Park" id="park-map" />
   )
 }
 
-//Displays all of the potential routes you could take, and the stops you could make
+//Displays all of the potential routes you could take
 const RoutesList = (props) => {
-
-  function checkIfRenderable() {
-    if (props.selectedRoute !== undefined && props.routeInfo !== undefined) {
-      return <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.selectedRouteInfo} />
-    }
-  }
   return (
     <div>
-      <ul>
+      <ul id="route-list">
         {props.routes.map(route => <li>{route.routename}</li>)}
       </ul>
-      {/* <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.selectedRouteInfo} /> */}
-      {/* {checkIfRenderable()} */}
+      <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} />
     </div>
   )
 }
@@ -49,9 +42,10 @@ const RoutesList = (props) => {
 const RouteCampgrounds = (props) => {
 
   return (
-    <ul>
-      {/* <li>{selectedRoute.routename}</li>
-      {props.routeInfo.map(site => <li>{routeInfo.description}</li>)} */}
+    <ul id="camp-route" hidden>
+      <button type='button' className="book-button">Book Now!!!</button>
+      <li>{props.selectedRoute.routename}</li>
+      {props.routeInfo.map(site => <li className="one-night">Night: {site.daynumber}<br />{site.description}</li>)}
     </ul>
   )
 }
@@ -63,13 +57,14 @@ class App extends React.Component {
       routes: [],
       campsites: [],
       availability: [],
-      selectedRoute: null,
-      selectedRouteInfo: [],
+      selectedRoute: {},
+      selectedRouteInfo: [{ "routeid": 1, "daynumber": 1, "campsiteid": 1, "description": "Madison Campground, night 1 of 2" }],
     }
     this.fetchRoutes = this.fetchRoutes.bind(this)
     this.fetchCampsites = this.fetchCampsites.bind(this)
     this.fetchAvailability = this.fetchAvailability.bind(this)
     this.handleSelectionChange = this.handleSelectionChange.bind(this)
+    this.handleButtonClick = this.handleButtonClick.bind(this)
     this.fetchSpecificRoute = this.fetchSpecificRoute.bind(this)
     //CHANGE BOOL FROM FALSE TO TRUE IF BOOKED
     this.postBookedStatus = this.postBookedStatus.bind(this)
@@ -99,6 +94,7 @@ class App extends React.Component {
       .then((json) => { this.setState({ selectedRouteInfo: json }) })
   }
 
+  // DO THIS DO THIS DO THIS DO THIS DO THIS 
   async postBookedStatus(campsiteid) {
     await fetch(``)
       .then((response) => response.json())
@@ -109,7 +105,15 @@ class App extends React.Component {
     let id = parseInt(e.target.value)
     this.setState({ selectedRoute: this.state.routes[id - 1] }, () => {
       this.fetchSpecificRoute(id)
+      let campList = document.getElementById("camp-route")
+      campList.removeAttribute('hidden')
+      let routeList = document.getElementById("route-list")
+      routeList.hidden = true
     })
+  }
+
+  handleButtonClick() {
+    this.postBookedStatus()
   }
 
   render() {
