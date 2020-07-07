@@ -33,7 +33,8 @@ const RoutesList = (props) => {
       <ul id="route-list">
         {props.routes.map(route => <li>{route.routename}</li>)}
       </ul>
-      <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} onClick={props.handleButtonClick}/>
+      <p>{new Date('2019-07-13T05:00:00.000Z').toString()}</p>
+      <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} handleButtonClick={props.handleButtonClick} />
     </div>
   )
 }
@@ -43,7 +44,7 @@ const RouteCampgrounds = (props) => {
 
   return (
     <ul id="camp-route" hidden>
-      <button type='button' className="book-button" onClick={props.onClick}>Book Now!!!</button>
+      <button type='button' className="book-button" onClick={props.handleButtonClick}>Book Now!!!</button>
       <li>{props.selectedRoute.routename}</li>
       {props.routeInfo.map(site => <li className="one-night">Night: {site.daynumber}<br />{site.description}</li>)}
     </ul>
@@ -95,10 +96,25 @@ class App extends React.Component {
   }
 
   // DO THIS DO THIS DO THIS DO THIS DO THIS 
-  async postBookedStatus(campsiteid, startDate) {
-    await fetch(`http://localhost:3001/book/${campsiteid}/${startDate}`)
-      .then((response) => response.json())
-      .then((json) => { this.setState({ availability: json }) })
+  async postBookedStatus(campsiteid, date) {
+    let data = {
+      id: campsiteid,
+      date: date,
+    }
+
+    await fetch('http://localhost:3001/book', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   handleSelectionChange(e) {
@@ -112,8 +128,16 @@ class App extends React.Component {
     })
   }
 
-  handleButtonClick() {
-    this.postBookedStatus()
+  handleButtonClick(routeInfo) {
+    let startDate = '2019-07-11'
+    for (let i = 0; i < routeInfo.length; i++) {
+      this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate)
+      let arr = startDate.split('-')
+      arr[2] = parseInt(arr[2]) + 1
+      startDate = arr.join('-')
+    }
+    this.fetchAvailability()
+    alert("You've booked your trip! Have a great time!")
   }
 
   render() {
