@@ -49,9 +49,21 @@ const getAvailability = (request, response) => {
     })
 }
 
+const getSpecificRouteInfo = (request, response) => {
+    let id = request.params.id
+
+    connection.query('SELECT * FROM t_routeInfo WHERE routeid=$1', [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 module.exports = {
     getRoutes,
     getRouteInfo,
     getCampsites,
-    getAvailability
+    getAvailability,
+    getSpecificRouteInfo
 }
