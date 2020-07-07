@@ -13,7 +13,7 @@ const Map = (props) => {
 const RoutesList = (props) => {
   return (
     <ul>
-
+      {props.routes.map(route => <li>{route.routename}</li>)}
     </ul>
   )
 }
@@ -22,8 +22,9 @@ const DateSelection = (props) => {
   return (
     <div>
       <label htmlFor="dates">Plan your trip...</label>
-      <br/>
+      <br />
       <select name='dates' id='dates' onChange={props.onChange}>
+        <option disabled selected hidden></option>
         <option value='1'>July 11 - July 13</option>
         <option value='2'>July 11 - July 14</option>
         <option value='3'>July 11 - July 15</option>
@@ -32,23 +33,10 @@ const DateSelection = (props) => {
   )
 }
 
-//Displays one campground list item
-const Campground = (props) => {
-  return (
-    <li>
-      <button type='button'>Book now!</button>
-      {/* Campground name
-      Campground description
-      Available? */}
-    </li>
-  )
-}
-
 //Displays all of the campground list items contained in a single route
 const RouteCampgrounds = (props) => {
   return (
     <ul>
-      {/* ALL THE CAMPGROUNDS IN THAT ROUTE WILL BE IN THIS LIST */}
     </ul>
   )
 }
@@ -58,28 +46,23 @@ class App extends React.Component {
     super(props)
     this.state = {
       routes: [],
-      routeInfo: [],
       campsites: [],
       availability: [],
-      selectedRoute: 1,
+      selectedRoute: null,
+      selectedRouteInfo: [],
     }
     this.fetchRoutes = this.fetchRoutes.bind(this)
-    this.fetchRouteInfo = this.fetchRouteInfo.bind(this)
     this.fetchCampsites = this.fetchCampsites.bind(this)
     this.fetchAvailability = this.fetchAvailability.bind(this)
     this.handleSelectionChange = this.handleSelectionChange.bind(this)
+    this.fetchSpecificRoute = this.fetchSpecificRoute.bind(this)
+    this.postBookedStatus = this.postBookedStatus.bind(this)
   }
 
   async fetchRoutes() {
     await fetch('http://localhost:3001/routes')
       .then((response) => response.json())
       .then((json) => { this.setState({ routes: json }) })
-  }
-
-  async fetchRouteInfo() {
-    await fetch('http://localhost:3001/routeinfo')
-      .then((response) => response.json())
-      .then((json) => { this.setState({ routeInfo: json }) })
   }
 
   async fetchCampsites() {
@@ -94,17 +77,32 @@ class App extends React.Component {
       .then((json) => { this.setState({ availability: json }) })
   }
 
-  handleSelectionChange(e) {
-    this.setState({selectedRoute: parseInt(e.target.value)})
+  async fetchSpecificRoute(id) {
+    await fetch(`http://localhost:3001/route/${id}`)
+      .then((response) => response.json())
+      .then((json) => { this.setState({ selectedRouteInfo: json }) })
   }
-  
+
+  async postBookedStatus(campsiteid) {
+    await fetch(``)
+      .then((response) => response.json())
+      .then((json) => {this.setState({availability: json})})
+  }
+
+  handleSelectionChange(e) {
+    let id = parseInt(e.target.value)
+    this.setState({ selectedRoute: this.state.routes[id - 1] }, () => {
+      this.fetchSpecificRoute(id)
+    })
+  }
+
+  displaySelectedRoute() {
+    
+  }
 
   render() {
     if (this.state.routes.length === 0) {
       this.fetchRoutes()
-    }
-    if (this.state.routeInfo.length === 0) {
-      this.fetchRouteInfo()
     }
     if (this.state.campsites.length === 0) {
       this.fetchCampsites()
@@ -112,6 +110,7 @@ class App extends React.Component {
     if (this.state.availability.length === 0) {
       this.fetchAvailability()
     }
+
 
     return (
       <div className="App">
@@ -123,7 +122,8 @@ class App extends React.Component {
           <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
           <Map selectedRoute={this.state.selectedRoute} />
           <h2>Book your trip now!</h2>
-          <RoutesList selectedRoute={this.state.selectedRoute} routes={this.state.routes} routeInfo={this.state.routeInfo} />
+          <RoutesList routes={this.state.routes} onClick={this.displaySelectedRoute}/>
+          <RouteCampgrounds selectedRoute={this.state.selectedRoute} routeInfo={this.state.selectedRouteInfo} />
         </div>
       </div>
     )
