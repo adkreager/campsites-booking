@@ -63,8 +63,23 @@ const getSpecificRouteInfo = (request, response) => {
 
 //UPDATES THE isBooked FOR CAMPSITES ON DATES ALONG A ROUTE
 const bookCampRoute = (request, response) => {
-    const id = parseInt(request.body)
-    connection.query("UPDATE t_availability SET isBooked='true' WHERE")
+    const { id, date } = request.body
+    connection.query("SELECT * FROM t_availability WHERE campsiteid=$1 AND bookdate=$2", [id, date], (error, results) => {
+        if (error) {
+            throw error
+        } else if (results.rows.length !== 0) {
+            connection.query("UPDATE t_availability SET isbooked=true WHERE campsiteid=$1 AND bookdate=$2", [id, date], (error, results) => {
+                if (error) {
+                    throw error
+                }
+                response.status(200).send(`Trip successfully booked for ${date}`)
+            })
+        } else {
+            console.log('problem')
+            response.send('There was a problem processing your request')
+        }
+    })
+
 }
 
 module.exports = {
