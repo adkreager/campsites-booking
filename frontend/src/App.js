@@ -4,53 +4,6 @@ import DateSelection from './DateSelection'
 import MapImage from './MapImage'
 import RoutesList from './RoutesList'
 
-
-// //Dates available to choose from
-// const DateSelection = (props) => {
-//   return (
-//     <div>
-//       <label htmlFor="dates">Plan your trip...</label>
-//       <br />
-//       <select name='dates' id='dates' onChange={props.onChange}>
-//         <option disabled selected hidden></option>
-//         <option value='1'>July 11 - July 13</option>
-//         <option value='2'>July 11 - July 14</option>
-//         <option value='3'>July 11 - July 15</option>
-//       </select>
-//     </div>
-//   )
-// }
-
-// //Map of Yellowstone, hoping to apply map html and display routes on map
-// const Map = (props) => {
-//   return (
-//     <img src={yellowstone} alt="Map of Yellowstone National Park" id="park-map" />
-//   )
-// }
-
-// //Displays all of the potential routes you could take
-// const RoutesList = (props) => {
-//   return (
-//     <div>
-//       <ul id="route-list">
-//         {props.routes.map(route => <li>{route.routename}</li>)}
-//       </ul>
-//       <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} handleButtonClick={props.handleButtonClick} />
-//     </div>
-//   )
-// }
-
-// //Displays all of the campground list items contained in a single route
-// const RouteCampgrounds = (props) => {
-//   return (
-//     <ul id="camp-route" hidden>
-//       <button type='button' className="book-button" onClick={() => props.handleButtonClick}>Book Now!!!</button>
-//       <li>{props.selectedRoute.routename}</li>
-//       {props.routeInfo.map(site => <li className="one-night">Night: {site.daynumber}<br />{site.description}</li>)}
-//     </ul>
-//   )
-// }
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -67,7 +20,6 @@ class App extends React.Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this)
     this.handleButtonClick = this.handleButtonClick.bind(this)
     this.fetchSpecificRoute = this.fetchSpecificRoute.bind(this)
-    //CHANGE BOOL FROM FALSE TO TRUE IF BOOKED
     this.postBookedStatus = this.postBookedStatus.bind(this)
   }
 
@@ -134,9 +86,9 @@ class App extends React.Component {
   //////////////////////////////////////////////////////////////////////
   handleButtonClick(routeInfo) {
     let startDate = '2019-07-11'
-    let zone = 'T05:00:00.000Z'
+    //let zone = 'T05:00:00.000Z'
     for (let i = 0; i < routeInfo.length; i++) {
-      this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate + zone)
+      this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate) //+ zone)
       //placeholder date incrementer TESTING ONLY
       let arr = startDate.split('-')
       arr[2] = parseInt(arr[2]) + 1
@@ -157,7 +109,6 @@ class App extends React.Component {
       this.fetchAvailability()
     }
 
-
     return (
       <div className="App">
         <header className="App-header">
@@ -168,9 +119,8 @@ class App extends React.Component {
           <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
           <MapImage selectedRoute={this.state.selectedRoute} />
           <h2>Book your trip now!</h2>
-          <React.Fragment>
-            <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
-          </React.Fragment>
+          <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} 
+            routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
         </div>
       </div>
     )
