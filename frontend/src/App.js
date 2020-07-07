@@ -33,7 +33,7 @@ const RoutesList = (props) => {
       <ul id="route-list">
         {props.routes.map(route => <li>{route.routename}</li>)}
       </ul>
-      <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} />
+      <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} onClick={props.handleButtonClick}/>
     </div>
   )
 }
@@ -43,7 +43,7 @@ const RouteCampgrounds = (props) => {
 
   return (
     <ul id="camp-route" hidden>
-      <button type='button' className="book-button">Book Now!!!</button>
+      <button type='button' className="book-button" onClick={props.onClick}>Book Now!!!</button>
       <li>{props.selectedRoute.routename}</li>
       {props.routeInfo.map(site => <li className="one-night">Night: {site.daynumber}<br />{site.description}</li>)}
     </ul>
@@ -95,8 +95,8 @@ class App extends React.Component {
   }
 
   // DO THIS DO THIS DO THIS DO THIS DO THIS 
-  async postBookedStatus(campsiteid) {
-    await fetch(``)
+  async postBookedStatus(campsiteid, startDate) {
+    await fetch(`http://localhost:3001/book/${campsiteid}/${startDate}`)
       .then((response) => response.json())
       .then((json) => { this.setState({ availability: json }) })
   }
@@ -139,7 +139,7 @@ class App extends React.Component {
           <Map selectedRoute={this.state.selectedRoute} />
           <h2>Book your trip now!</h2>
           <React.Fragment>
-            <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} routeInfo={this.state.selectedRouteInfo} />
+            <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
           </React.Fragment>
         </div>
       </div>
