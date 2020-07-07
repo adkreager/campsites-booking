@@ -78,7 +78,6 @@ const bookCampRoute = (request, response) => {
             response.send('There was a problem processing your request')
         }
     })
-
 }
 
 module.exports = {
