@@ -75,7 +75,6 @@ const bookCampRoute = (request, response) => {
                 response.status(200).send(`Trip successfully booked for ${date}`)
             })
         } else {
-            console.log('problem')
             response.send('There was a problem processing your request')
         }
     })
