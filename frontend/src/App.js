@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import DateSelection from './DateSelection'
-import MapImage from './MapImage'
+import RouteSelection from './RouteSelection'
+// import MapImage from './MapImage'
 import RoutesList from './RoutesList'
 
 class App extends React.Component {
@@ -95,10 +96,16 @@ class App extends React.Component {
     }
     let button = document.getElementById("book-button")
     button.hidden = true
+    let dropList = document.getElementById("dateSelection")
+    dropList.hidden = true
     let bookMessage = document.getElementById("book-message")
     bookMessage.innerText = "You booked this trip!"
     this.fetchAvailability()
     alert("You've booked your trip! Have a great time!")
+  }
+
+  handleStopSelection() {
+
   }
 
   render() {
@@ -113,17 +120,18 @@ class App extends React.Component {
     }
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Yellowstone National Park Campground Booking Service</h1>
-        </header>
-        <div className="App-body">
-          <h1>Hello there</h1>
-          <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
-          <MapImage selectedRoute={this.state.selectedRoute} />
-          <h2 id="book-message">Book your trip now!</h2>
-          <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} 
-            routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
+      <div>
+        <div className="App">
+          <div className="App-body">
+            <div id="top-card">
+              <RouteSelection />
+              <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
+              <h2 id="book-message">Book your trip now!</h2>
+            </div>
+            {/* <MapImage selectedRoute={this.state.selectedRoute} /> */}
+            <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute}
+              routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
+          </div>
         </div>
       </div>
     )
