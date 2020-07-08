@@ -4,11 +4,9 @@ import RouteCampgrounds from './RouteCampgrounds'
 //Displays all of the potential routes you could take
 const RoutesList = (props) => {
     return (
-        <div>
-            <ul id="route-list">
-                {props.routes.map(route => <li>{route.routename}</li>)}
-            </ul>
+        <div id="card-container">
             <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} handleButtonClick={props.handleButtonClick} />
+           <a href='#' className="btn btn-primary">Book Now!!!</a>
         </div>
     )
 }
