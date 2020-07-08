@@ -5,7 +5,7 @@ import RouteCampgrounds from './RouteCampgrounds'
 const RoutesList = (props) => {
     return (
         <div id="card-container">
-            <RouteCampgrounds selectedRoute={props.selectedRoute} routeInfo={props.routeInfo} handleButtonClick={props.handleButtonClick} />
+            <RouteCampgrounds onRadio={props.onRadio} />
            <a href='#' className="btn btn-primary">Book Now!!!</a>
         </div>
     )
