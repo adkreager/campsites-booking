@@ -86,9 +86,8 @@ class App extends React.Component {
   //////////////////////////////////////////////////////////////////////
   handleButtonClick(routeInfo) {
     let startDate = '2019-07-11'
-    //let zone = 'T05:00:00.000Z'
     for (let i = 0; i < routeInfo.length; i++) {
-      this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate) //+ zone)
+      this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate)
       //placeholder date incrementer TESTING ONLY
       let arr = startDate.split('-')
       arr[2] = parseInt(arr[2]) + 1
