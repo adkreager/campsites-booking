@@ -5,11 +5,6 @@ import SiteSelection from './SiteSelection'
 //Displays all of the campground list items contained in a single route
 const RouteCampgrounds = (props) => {
     return (
-        // <ul id="camp-route" hidden>
-        //     <button type='button' id="book-button" onClick={() => props.handleButtonClick(props.routeInfo)}>Book Now!!!</button>
-        //     <li>{props.selectedRoute.routename}</li>
-        //     {props.routeInfo.map(site => <li className="one-night">Night: {site.daynumber}<br />{site.description}</li>)}
-        // </ul>
         //FOR EACH DAY
         <div>
             <div className="card">
