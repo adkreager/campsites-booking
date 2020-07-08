@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3001
-const queries = require('./queries')
+const queries = require('./newquery')
 const cors = require('cors')
 
 app.use(bodyParser.json())
@@ -21,9 +21,11 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
+// app.get('/routes', queries.getRoutes)
+// app.get('/routeinfo', queries.getRouteInfo)
+// app.get('/campsites', queries.getCampsites)
+// app.get('/availability', queries.getAvailability)
+// app.get('/route/:id', queries.getSpecificRouteInfo)
+// app.put('/book', queries.bookCampRoute)
+
 app.get('/routes', queries.getRoutes)
-app.get('/routeinfo', queries.getRouteInfo)
-app.get('/campsites', queries.getCampsites)
-app.get('/availability', queries.getAvailability)
-app.get('/route/:id', queries.getSpecificRouteInfo)
-app.put('/book', queries.bookCampRoute)
