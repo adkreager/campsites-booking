@@ -20,3 +20,18 @@ ul {
 #park-map {
   max-height: 35vh;
 }
+
+.card {
+  width: 18rem;
+  border: 1px solid gray;
+  margin: 1vw;
+}
+
+#card-container {
+  display: flex;
+}
+
+#top-card {
+  display: flex;
+  align-items: baseline;
+}
