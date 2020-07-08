@@ -94,8 +94,12 @@ class App extends React.Component {
       arr[2] = parseInt(arr[2]) + 1
       startDate = arr.join('-')
     }
+    let button = document.getElementById("book-button")
+    button.hidden = true
+    let bookMessage = document.getElementById("book-message")
+    bookMessage.innerText = "You booked this trip!"
     this.fetchAvailability()
-    //alert("You've booked your trip! Have a great time!")
+    alert("You've booked your trip! Have a great time!")
   }
 
   render() {
@@ -118,7 +122,7 @@ class App extends React.Component {
           <h1>Hello there</h1>
           <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
           <MapImage selectedRoute={this.state.selectedRoute} />
-          <h2>Book your trip now!</h2>
+          <h2 id="book-message">Book your trip now!</h2>
           <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute} 
             routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
         </div>
