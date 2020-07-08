@@ -71,7 +71,7 @@ const bookCampRoute = (request, response) => {
         } else if (results.rows.length !== 0) {
             let canBook = true
             for (let i = 0; i < results.rows.length; i++) {
-                if (results.rows[i].isBooked === true) {
+                if (results.rows[i].isbooked === true) {
                     canBook = false
                 }
             }
