@@ -2,26 +2,20 @@ import React from 'react';
 import './App.css';
 import DateSelection from './DateSelection'
 import RouteSelection from './RouteSelection'
-// import MapImage from './MapImage'
 import RoutesList from './RoutesList'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      // selectedRoute: {},
+      // selectedRouteInfo: [{ "routeid": 1, "daynumber": 1, "campsiteid": 1, "description": "Madison Campground, night 1 of 2" }],
       routes: [],
-      campsites: [],
-      availability: [],
-      selectedRoute: {},
-      selectedRouteInfo: [{ "routeid": 1, "daynumber": 1, "campsiteid": 1, "description": "Madison Campground, night 1 of 2" }],
+      routeLodgings: [],
+      total: 0,
     }
     this.fetchRoutes = this.fetchRoutes.bind(this)
-    this.fetchCampsites = this.fetchCampsites.bind(this)
-    this.fetchAvailability = this.fetchAvailability.bind(this)
-    this.handleSelectionChange = this.handleSelectionChange.bind(this)
-    this.handleButtonClick = this.handleButtonClick.bind(this)
-    this.fetchSpecificRoute = this.fetchSpecificRoute.bind(this)
-    this.postBookedStatus = this.postBookedStatus.bind(this)
+    this.fetchLodgings = this.fetchLodgings.bind(this)
   }
 
   async fetchRoutes() {
@@ -30,22 +24,10 @@ class App extends React.Component {
       .then((json) => { this.setState({ routes: json }) })
   }
 
-  async fetchCampsites() {
-    await fetch('http://localhost:3001/campsites')
+  async fetchLodgings(id, day, type) {
+    await fetch(`http://localhost:3001/${id}/${day}/${type}`)
       .then((response) => response.json())
-      .then((json) => { this.setState({ campsites: json }) })
-  }
-
-  async fetchAvailability() {
-    await fetch('http://localhost:3001/availability')
-      .then((response) => response.json())
-      .then((json) => { this.setState({ availability: json }) })
-  }
-
-  async fetchSpecificRoute(id) {
-    await fetch(`http://localhost:3001/route/${id}`)
-      .then((response) => response.json())
-      .then((json) => { this.setState({ selectedRouteInfo: json }) })
+      .then((json) => { this.setState({ routeLodgings: json }) })
   }
 
   // PERFORMS PUT QUERY TAKING IN DATA FROM THE CURRENT ROUTE
@@ -71,16 +53,16 @@ class App extends React.Component {
       });
   }
 
-  handleSelectionChange(e) {
+  handleRouteSelectionChange(e) {
     let id = parseInt(e.target.value)
     this.setState({ selectedRoute: this.state.routes[id - 1] }, () => {
       this.fetchSpecificRoute(id)
 
       //changes visibility of lists
-      let campList = document.getElementById("camp-route")
-      campList.removeAttribute('hidden')
-      let routeList = document.getElementById("route-list")
-      routeList.hidden = true
+      // let campList = document.getElementById("camp-route")
+      // campList.removeAttribute('hidden')
+      // let routeList = document.getElementById("route-list")
+      // routeList.hidden = true
     })
   }
   //ON BUTTON CLICK, TAKES IN THE ROUTE INFO AND PERFORMS A PUT FOR THAT BOOKING
@@ -104,33 +86,28 @@ class App extends React.Component {
     alert("You've booked your trip! Have a great time!")
   }
 
-  handleStopSelection() {
-
-  }
 
   render() {
-    if (this.state.routes.length === 0) {
-      this.fetchRoutes()
-    }
-    if (this.state.campsites.length === 0) {
-      this.fetchCampsites()
-    }
-    if (this.state.availability.length === 0) {
-      this.fetchAvailability()
-    }
+    // if (this.state.routes.length === 0) {
+    //   this.fetchRoutes()
+    // }
+    // if (this.state.campsites.length === 0) {
+    //   this.fetchCampsites()
+    // }
+    // if (this.state.availability.length === 0) {
+    //   this.fetchAvailability()
+    // }
 
     return (
       <div>
         <div className="App">
           <div className="App-body">
             <div id="top-card">
-              <RouteSelection />
+              <RouteSelection onChange={this.handleRouteSelectionChange}/>
               <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
               <h2 id="book-message">Book your trip now!</h2>
             </div>
-            {/* <MapImage selectedRoute={this.state.selectedRoute} /> */}
-            <RoutesList routes={this.state.routes} selectedRoute={this.state.selectedRoute}
-              routeInfo={this.state.selectedRouteInfo} handleButtonClick={this.handleButtonClick} />
+            <RoutesList onRadio={this.fetchLodgings} />
           </div>
         </div>
       </div>
