@@ -61,6 +61,7 @@ const getSpecificRouteInfo = (request, response) => {
     })
 }
 
+
 //UPDATES THE isBooked FOR CAMPSITES ON DATES ALONG A ROUTE
 const bookCampRoute = (request, response) => {
     const { id, date } = request.body
@@ -68,12 +69,23 @@ const bookCampRoute = (request, response) => {
         if (error) {
             throw error
         } else if (results.rows.length !== 0) {
-            connection.query("UPDATE t_availability SET isbooked=true WHERE campsiteid=$1 AND bookdate=$2", [id, date], (error, results) => {
-                if (error) {
-                    throw error
+            let canBook = true
+            for (let i = 0; i < results.rows.length; i++) {
+                if (results.rows[i].isBooked === true) {
+                    canBook = false
                 }
-                response.status(200).send(`Trip successfully booked for ${date}`)
-            })
+            }
+            if (canBook) {
+                connection.query("UPDATE t_availability SET isbooked=true WHERE campsiteid=$1 AND bookdate=$2", [id, date], (error, results) => {
+                    if (error) {
+                        throw error
+                    }
+                    response.status(200).send(`Trip successfully booked for ${date}`)
+                })
+            }
+            else (
+                response.status(400).send('You have already booked a campsite for that date.')
+            )
         } else {
             response.send('There was a problem processing your request')
         }
