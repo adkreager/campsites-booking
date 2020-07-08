@@ -1,33 +1,59 @@
-CREATE DATABASE campgrounds;
+CREATE DATABASE campsites;
 
 CREATE TABLE t_routeList (
 	routeId SERIAL,
 	routeName VARCHAR NOT NULL,
+	routeDesc VARCHAR NOT NULL,
 	PRIMARY KEY (routeId)
 );
 
 INSERT INTO t_routeList (routeName) 
-VALUES ('3-day, 2-night'),
-('4-day, 3-night'),
-('5-day, 4-night');
+VALUES ('Route 1', '3-day, 2-night'),
+('Route 2', '4-day, 3-night'),
+('Route 3', '5-day, 4-night');
+
+-- CREATE TABLE t_campsites (
+-- 	campsiteId SERIAL,
+-- 	campsiteName VARCHAR(50) NOT NULL,
+-- 	PRIMARY KEY (campsiteId)
+-- );
+
+-- INSERT INTO t_campsites (campsiteName)
+-- VALUES ('Madison'),
+-- ('Old Faithful'),
+-- ('Grant Village'),
+-- ('Museum'),
+-- ('Indian Creek'),
+-- ('East Entrance'),
+-- ('Lake Village'),
+-- ('Canyon Village'),
+-- ('Tower Fall'),
+-- ('Pebble Creek');
 
 CREATE TABLE t_campsites (
 	campsiteId SERIAL,
 	campsiteName VARCHAR(50) NOT NULL,
+	campsiteType VARCHAR NOT NULL,
+	price REAL NOT NULL,
 	PRIMARY KEY (campsiteId)
 );
 
-INSERT INTO t_campsites (campsiteName)
-VALUES ('Madison'),
-('Old Faithful'),
-('Grant Village'),
-('Museum'),
-('Indian Creek'),
-('East Entrance'),
-('Lake Village'),
-('Canyon Village'),
-('Tower Fall'),
-('Pebble Creek');
+INSERT INTO t_campsites (campsiteName, campsiteType, price)
+VALUES 
+('Madison Campground', 'campground'), --Madison
+('Canyon Lodge & Cabins', 'hotel', ), --Canyon Village
+('Canyon Campground', 'campground'), --Canyon Village
+('Moran Lodge', 'hotel'), --Canyon Village
+('Old Faithful Inn', 'hotel'), --Old Faithful
+('Old Faithful Lodge', 'hotel'), --Old Faithful
+('Old Faithful Snow Lodge', 'hotel'), --Old Faithful
+('Grant Village Lodge', 'hotel'), --Grant Village
+('Grant Village Campground', 'campground'), --Grant Village
+('Lake Village Lodge & Cabins', 'hotel'), --Lake Village
+('Pahaska Tepee Resort', 'hotel'), -- Pahaska Tepees
+('Roosevelt Lodge & Cabins', 'hotel'), --Tower Fall
+('Tower Fall Campground', 'campground'), --Tower Fall
+('Norris Campground', 'campground') --Museum
 
 CREATE TABLE t_availability (
 	campsiteId INT NOT NULL,
