@@ -112,7 +112,7 @@ class App extends React.Component {
         <div className="App">
           <div className="App-body">
             <div id="top-card">
-              <RouteSelection routes={this.state.routes} onChange={this.handleRouteSelectionChange} />
+              <RouteSelection routes={this.state.routes} onRouteChange={this.handleRouteSelectionChange} />
               <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleDateSelectionChange} />
               <h2 id="book-message">Book your trip now!</h2>
             </div>
