@@ -115,7 +115,7 @@ class App extends React.Component {
               <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleDateSelectionChange} />
               <h2 id="book-message">Book your trip now!</h2>
             </div>
-            <RoutesList selectedRoute={this.state.selectedRoute} onOKClick={this.handleOKClick} />
+            <RoutesList selectedRoute={this.state.selectedRoute} onOKClick={this.handleOKClick} date={this.state.startDate} />
           </div>
         </div>
       </div>
