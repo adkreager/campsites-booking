@@ -3,7 +3,6 @@ import './App.css';
 import DateSelection from './DateSelection'
 import RouteSelection from './RouteSelection'
 import RoutesList from './RoutesList'
-import RouteCampgrounds from './RouteCampgrounds';
 
 class App extends React.Component {
   constructor(props) {
@@ -60,11 +59,6 @@ class App extends React.Component {
   handleRouteSelectionChange(e) {
     let id = parseInt(e.target.value)
     this.setState({ selectedRoute: this.state.routes[id - 1] }
-      //changes visibility of lists
-      // let campList = document.getElementById("camp-route")
-      // campList.removeAttribute('hidden')
-      // let routeList = document.getElementById("route-list")
-      // routeList.hidden = true
     )
   }
 
@@ -78,6 +72,12 @@ class App extends React.Component {
       let newTrip = this.state.trip
       newTrip.push({ lodgingType: lodgingType, lodgingLocation: lodgingLocation, roomStyle: roomStyle })
       this.setState({ trip: newTrip })
+
+            //changes visibility of lists
+      // let campList = document.getElementById("camp-route")
+      // campList.removeAttribute('hidden')
+      // let routeList = document.getElementById("route-list")
+      // routeList.hidden = true
     }
   }
   //ON BUTTON CLICK, TAKES IN THE ROUTE INFO AND PERFORMS A PUT FOR THAT BOOKING
@@ -106,12 +106,6 @@ class App extends React.Component {
     if (this.state.routes.length === 0) {
       this.fetchRoutes()
     }
-    // if (this.state.campsites.length === 0) {
-    //   this.fetchCampsites()
-    // }
-    // if (this.state.availability.length === 0) {
-    //   this.fetchAvailability()
-    // }
 
     return (
       <div>
