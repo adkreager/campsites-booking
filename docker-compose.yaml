@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+    api:
+        build: database/
+        depends_on:
+            - 'database'
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: fastWeasel24!
+            DOCKERIZED: 1
+            POSTGRES_DB: booking
+
+        ports: 
+            - '3001:3001'
+
+    client:
+        build: frontend/
+        depends_on:
+            - 'database'
+            - 'api'
+        volumes:
+            - './frontend:/web'
+            - '/web/node_modules'
+        ports:
+            - '3000:3000'
+        stdin_open: true
+
+    database:
+        build: postgresql/
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: fastWeasel24!
+            POSTGRES_DB: booking
