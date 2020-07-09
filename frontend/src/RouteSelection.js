@@ -2,20 +2,15 @@ import React from 'react';
 
 //Dates available to choose from
 const RouteSelection = (props) => {
-    return (
-      <div id="routeSelection">
+  return (
+    <div id="routeSelection">
       <label htmlFor="route">Route...</label>
-        <select name='route' id='route' onChange={props.onChange}>
-          <option disabled selected hidden></option>
+      <select name='route' id='route' onChange={props.onChange}>
+        <option disabled selected hidden></option>
+        {props.routes.map(route => <option value={route.routeid}>{route.routename} ({route.routedesc})</option>)}
+      </select>
+    </div>
+  )
+}
 
-            DROP DOWN LIST POPULATE WITH MAP HERE
-
-          <option value='1'>Route 1 (2 stops)</option>
-          <option value='2'>Route 2 (3 stops)</option>
-          <option value='3'>Route 3 (4 stops)</option>
-        </select>
-      </div>
-    )
-  }
-
-  export default RouteSelection
+export default RouteSelection
