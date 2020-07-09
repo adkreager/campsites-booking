@@ -11,12 +11,12 @@ class RouteCampgrounds extends React.Component {
             currentDay: props.currentDay,
             selectedRoute: props.selectedRoute,
             lodging: [],
-            // rooms: [],
+            rooms: [],
         }
         this.fetchLodgings = this.fetchLodgings.bind(this)
         this.handleLodgTypeSelectionChange = this.handleLodgTypeSelectionChange.bind(this)
-        // this.handleLodgingSelectionChange = this.handleLodgingSelectionChange.bind(this)
-        // this.handleSiteSelectionChange = this.handleSiteSelectionChange.bind(this)
+        this.handleLodgingSelectionChange = this.handleLodgingSelectionChange.bind(this)
+        this.handleSiteSelectionChange = this.handleSiteSelectionChange.bind(this)
     }
 
     fetchLodgings(id, day, type) {
@@ -25,11 +25,11 @@ class RouteCampgrounds extends React.Component {
           .then((json) => { this.setState({ lodging: json }) })
       }
 
-    // async fetchRooms() {
-    //     await fetch('http://localhost:3001/sites/')
-    //         .then((response) => response.json())
-    //         .then((json) => { this.setState({ rooms: json }) })
-    // }
+    fetchRooms(lodgingid, date) {
+        fetch(`http://localhost:3001/sites/${lodgingid}/${date}`)
+            .then((response) => response.json())
+            .then((json) => { this.setState({ rooms: json }) })
+    }
 
     async handleLodgTypeSelectionChange(e) {
         await this.setState({ lodgingType: e.target.value }, () => {
@@ -37,13 +37,15 @@ class RouteCampgrounds extends React.Component {
         })
     }
 
-    // handleLodgingSelectionChange(e) {
-    //     this.setState({ lodgingSelection: e.target.value })
-    // }
+    async handleLodgingSelectionChange(e) {
+        await this.setState({ lodgingSelection: e.target.value }, () => {
+            this.fetchRooms(this.state.lodgingSelection, this.state.currentDay)
+        })
+    }
 
-    // handleSiteSelectionChange(e) {
-    //     this.setState({ siteSelection: e.target.value })
-    // }
+    async handleSiteSelectionChange(e) {
+        await this.setState({ siteSelection: e.target.value })
+    }
     render() {
         if (this.state.selectedRoute !== undefined) {
             return (
@@ -51,16 +53,17 @@ class RouteCampgrounds extends React.Component {
                     <div className="card">
                         <h2 className="card-header">Day {this.state.currentDay}</h2>
                         <div className="card-body">
-                            <LodgTypeSelection selectedRoute={this.state.selectedRoute} onChange={this.handleLodgTypeSelectionChange} currentDay={this.state.currentDay}/>
+                            <LodgTypeSelection selectedRoute={this.state.selectedRoute} onChange={this.handleLodgTypeSelectionChange} 
+                                currentDay={this.state.currentDay}/>
                             <br />
-                            {/* --SELECT PREFERRED LODGING LOCATION */}
                             <LodgingSelection onChange={this.handleLodgingSelectionChange} fetchLodgings={this.fetchLodgings} 
                               lodging={this.state.lodging} selectedRoute={this.props.selectedRoute} currentDay={this.props.currentDay}
                                   lodgingType={this.state.lodgingType}
                               />
                             <br />
                             {/* --SELECT PREFERRED SITE/ROOM */}
-                            <SiteSelection onChange={this.handleSiteSelectionChange} />
+                            <SiteSelection onChange={this.handleSiteSelectionChange} fetchRooms={this.fetchRooms} 
+                                rooms={this.state.rooms} lodgingSelection={this.state.lodgingSelection} currentDay={this.state.currentDay}/>
                             <br />
                             {/* --BUTTON TO CONFIRM THAT ROOM/SITE, THEN DISPLAY THE NEXT CARD */}
                             <button type="button" className="btn btn-primary" onClick={this.props.onOKClick(this.state.lodgingType, this.state.lodgingSelection, this.state.siteSelection)}>OK</button>
