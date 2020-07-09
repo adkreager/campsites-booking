@@ -27,7 +27,7 @@ ul {
   margin: 1vw;
 }
 
-#card-container {
+.flex {
   display: flex;
 }
 

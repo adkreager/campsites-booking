@@ -9,12 +9,17 @@ const RoutesList = (props) => {
             arr.push(i)
         }
     }
-    let cards = arr.map(day => <RouteCampgrounds currentDay={day} selectedRoute={props.selectedRoute} onOKClick={props.onOKClick}/>);
+    let cards = arr.map(day => <RouteCampgrounds currentDay={day} selectedRoute={props.selectedRoute} onOKClick={props.onOKClick} />);
 
     return (
-        <div id="card-container">
-            {cards}
-            <a href='#' className="btn btn-primary" >Book Now!!!</a>
+        <div className="flex">
+            <div className="flex">
+                {cards}
+            </div>
+            <div>
+                <a href='#' className="btn btn-primary" >Book Now!!!</a>
+                <p>Summary Info here <br /> price <br /> etc.</p>
+            </div>
         </div>
     )
 }
