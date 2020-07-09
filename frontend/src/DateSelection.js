@@ -4,9 +4,8 @@ import React from 'react';
 const DateSelection = (props) => {
     return (
       <div id="dateSelection">
-        <label htmlFor="dates">Start date...</label>
-        <select name='dates' id='dates' onChange={props.onChange}>
-          <option disabled selected hidden></option>
+        <label htmlFor="date">Start date...</label>
+        <select name='date' id='date' onChange={props.onChange}>
           <option value='2020-07-11'>July 11</option>
           <option value='2020-07-12'>July 12</option>
           <option value='2020-07-13'>July 13</option>
