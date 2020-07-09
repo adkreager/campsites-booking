@@ -1,13 +1,13 @@
 import React from 'react'
 
 const LodgingSelection = (props) => {
+  props.fetchLodgings(props.selectedRoute.routeid, props.currentDay, )
     return (
-      <div id="routeSelection">
-      <label htmlFor="route">Lodging...</label> <br />
-        <select name='route' id='route' onChange={props.onChange}>
+      <div>
+      <label htmlFor="lodging">Lodging...</label> <br />
+        <select name='lodging' id='lodging' onChange={props.onChange}>
           <option disabled selected hidden></option>
-
-            DROP DOWN LIST POPULATE WITH MAP HERE
+          {props.lodging.map(lodge => <option value={lodge.lodgingid}>{lodge.lodgingname}</option>)}
 
           <option value='1'>Route 1 (2 stops)</option>
           <option value='2'>Route 2 (3 stops)</option>
