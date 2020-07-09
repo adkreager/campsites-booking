@@ -3,19 +3,23 @@ import './App.css';
 import DateSelection from './DateSelection'
 import RouteSelection from './RouteSelection'
 import RoutesList from './RoutesList'
+import RouteCampgrounds from './RouteCampgrounds';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // selectedRoute: {},
-      // selectedRouteInfo: [{ "routeid": 1, "daynumber": 1, "campsiteid": 1, "description": "Madison Campground, night 1 of 2" }],
       routes: [],
       routeLodgings: [],
+      startDate: "2020-07-11",
+      trip: [],
       total: 0,
     }
     this.fetchRoutes = this.fetchRoutes.bind(this)
     this.fetchLodgings = this.fetchLodgings.bind(this)
+    this.handleRouteSelectionChange = this.handleRouteSelectionChange.bind(this)
+    this.handleDateSelectionChange = this.handleDateSelectionChange.bind(this)
+    this.handleOKClick = this.handleOKClick.bind(this)
   }
 
   async fetchRoutes() {
@@ -55,20 +59,31 @@ class App extends React.Component {
 
   handleRouteSelectionChange(e) {
     let id = parseInt(e.target.value)
-    this.setState({ selectedRoute: this.state.routes[id - 1] }, () => {
-      this.fetchSpecificRoute(id)
-
+    this.setState({ selectedRoute: this.state.routes[id - 1] }
       //changes visibility of lists
       // let campList = document.getElementById("camp-route")
       // campList.removeAttribute('hidden')
       // let routeList = document.getElementById("route-list")
       // routeList.hidden = true
-    })
+    )
+  }
+
+  handleDateSelectionChange(e) {
+    this.setState({ startDate: e.target.value })
+  }
+
+
+  handleOKClick(lodgingType, lodgingLocation, roomStyle) {
+    if (lodgingType && lodgingLocation && roomStyle) {
+      let newTrip = this.state.trip
+      newTrip.push({ lodgingType: lodgingType, lodgingLocation: lodgingLocation, roomStyle: roomStyle })
+      this.setState({ trip: newTrip })
+    }
   }
   //ON BUTTON CLICK, TAKES IN THE ROUTE INFO AND PERFORMS A PUT FOR THAT BOOKING
   //////////////////////////////////////////////////////////////////////
   handleButtonClick(routeInfo) {
-    let startDate = '2019-07-11'
+    let startDate = this.state.startDate
     for (let i = 0; i < routeInfo.length; i++) {
       this.postBookedStatus(parseInt(routeInfo[i].campsiteid), startDate)
       //placeholder date incrementer TESTING ONLY
@@ -88,9 +103,9 @@ class App extends React.Component {
 
 
   render() {
-    // if (this.state.routes.length === 0) {
-    //   this.fetchRoutes()
-    // }
+    if (this.state.routes.length === 0) {
+      this.fetchRoutes()
+    }
     // if (this.state.campsites.length === 0) {
     //   this.fetchCampsites()
     // }
@@ -103,11 +118,11 @@ class App extends React.Component {
         <div className="App">
           <div className="App-body">
             <div id="top-card">
-              <RouteSelection onChange={this.handleRouteSelectionChange}/>
-              <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleSelectionChange} />
+              <RouteSelection routes={this.state.routes} onChange={this.handleRouteSelectionChange} />
+              <DateSelection selectedRoute={this.state.selectedRoute} onChange={this.handleDateSelectionChange} />
               <h2 id="book-message">Book your trip now!</h2>
             </div>
-            <RoutesList onRadio={this.fetchLodgings} />
+            <RoutesList selectedRoute={this.state.selectedRoute} onOKClick={this.handleOKClick} />
           </div>
         </div>
       </div>
