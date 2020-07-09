@@ -61,11 +61,10 @@ class RouteCampgrounds extends React.Component {
                                   lodgingType={this.state.lodgingType}
                               />
                             <br />
-                            {/* --SELECT PREFERRED SITE/ROOM */}
                             <SiteSelection onChange={this.handleSiteSelectionChange} fetchRooms={this.fetchRooms} 
-                                rooms={this.state.rooms} lodgingSelection={this.state.lodgingSelection} currentDay={this.state.currentDay}/>
+                                rooms={this.state.rooms} lodgingSelection={this.state.lodgingSelection} currentDay={this.state.currentDay} date={this.props.date}/>
                             <br />
-                            {/* --BUTTON TO CONFIRM THAT ROOM/SITE, THEN DISPLAY THE NEXT CARD */}
+                            {/* --BUTTON TO CONFIRM THAT ROOM/SITE, THEN DISPLAY THE 'SUBMITTED' CARD */}
                             <button type="button" className="btn btn-primary" onClick={this.props.onOKClick(this.state.lodgingType, this.state.lodgingSelection, this.state.siteSelection)}>OK</button>
                         </div>
                     </div>
