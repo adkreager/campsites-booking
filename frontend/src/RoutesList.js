@@ -9,7 +9,7 @@ const RoutesList = (props) => {
             arr.push(i)
         }
     }
-    let cards = arr.map(day => <RouteCampgrounds currentDay={day} selectedRoute={props.selectedRoute} onOKClick={props.onOKClick} />);
+    let cards = arr.map(day => <RouteCampgrounds currentDay={day} selectedRoute={props.selectedRoute} onOKClick={props.onOKClick} date={props.date}/>);
 
     return (
         <div className="flex">
