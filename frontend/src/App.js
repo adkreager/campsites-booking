@@ -9,13 +9,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       routes: [],
-      routeLodgings: [],
       startDate: "2020-07-11",
       trip: [],
-      total: 0,
+      tripTotal: 0,
     }
     this.fetchRoutes = this.fetchRoutes.bind(this)
-    this.fetchLodgings = this.fetchLodgings.bind(this)
+    // this.fetchLodgings = this.fetchLodgings.bind(this)
     this.handleRouteSelectionChange = this.handleRouteSelectionChange.bind(this)
     this.handleDateSelectionChange = this.handleDateSelectionChange.bind(this)
     this.handleOKClick = this.handleOKClick.bind(this)
@@ -27,11 +26,11 @@ class App extends React.Component {
       .then((json) => { this.setState({ routes: json }) })
   }
 
-  async fetchLodgings(id, day, type) {
-    await fetch(`http://localhost:3001/${id}/${day}/${type}`)
-      .then((response) => response.json())
-      .then((json) => { this.setState({ routeLodgings: json }) })
-  }
+  // async fetchLodgings(id, day, type) {
+  //   await fetch(`http://localhost:3001/lodging/${id}/${day}/${type}`)
+  //     .then((response) => response.json())
+  //     .then((json) => { this.setState({ routeLodgings: json }) })
+  // }
 
   // PERFORMS PUT QUERY TAKING IN DATA FROM THE CURRENT ROUTE
   ///////////////////////////////////////////////////////////
@@ -72,7 +71,7 @@ class App extends React.Component {
       let newTrip = this.state.trip
       newTrip.push({ lodgingType: lodgingType, lodgingLocation: lodgingLocation, roomStyle: roomStyle })
       this.setState({ trip: newTrip })
-
+      //REMOVE BUTTON VISIBILITY ON OK CLICK
             //changes visibility of lists
       // let campList = document.getElementById("camp-route")
       // campList.removeAttribute('hidden')
