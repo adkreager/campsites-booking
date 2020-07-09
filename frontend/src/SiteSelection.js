@@ -2,9 +2,9 @@ import React from 'react'
 
 const SiteSelection = (props) => {
     return (
-      <div id="routeSelection">
-      <label htmlFor="route">Site...</label><br />
-        <select name='route' id='route' onChange={props.onChange}>
+      <div>
+      <label htmlFor="site">Site...</label><br />
+        <select name='site' id='site' onChange={props.onChange}>
           <option disabled selected hidden></option>
 
             DROP DOWN LIST POPULATE WITH MAP HERE
