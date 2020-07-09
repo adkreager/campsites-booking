@@ -11,16 +11,16 @@ class RouteCampgrounds extends React.Component {
             currentDay: props.currentDay,
             selectedRoute: props.selectedRoute,
             lodging: [],
-            rooms: [],
+            // rooms: [],
         }
         this.fetchLodgings = this.fetchLodgings.bind(this)
         this.handleLodgTypeSelectionChange = this.handleLodgTypeSelectionChange.bind(this)
-        this.handleLodgingSelectionChange = this.handleLodgingSelectionChange.bind(this)
-        this.handleSiteSelectionChange = this.handleSiteSelectionChange.bind(this)
+        // this.handleLodgingSelectionChange = this.handleLodgingSelectionChange.bind(this)
+        // this.handleSiteSelectionChange = this.handleSiteSelectionChange.bind(this)
     }
 
-    async fetchLodgings(id, day, type) {
-        await fetch(`http://localhost:3001/${id}/${day}/${type}`)
+    fetchLodgings(id, day, type) {
+        fetch(`http://localhost:3001/lodging/${id}/${day}/${type}`)
           .then((response) => response.json())
           .then((json) => { this.setState({ lodging: json }) })
       }
@@ -31,18 +31,19 @@ class RouteCampgrounds extends React.Component {
     //         .then((json) => { this.setState({ rooms: json }) })
     // }
 
-    handleLodgTypeSelectionChange(e) {
-        this.setState({ lodgingType: e.target.value })
-        this.fetchLodgings(this.state.selectedRoute.routeid, this.state.currentDay, this.state.lodgingType)
+    async handleLodgTypeSelectionChange(e) {
+        await this.setState({ lodgingType: e.target.value }, () => {
+            this.fetchLodgings(this.state.selectedRoute.routeid, this.state.currentDay, this.state.lodgingType)
+        })
     }
 
-    handleLodgingSelectionChange(e) {
-        this.setState({ lodgingSelection: e.target.value })
-    }
+    // handleLodgingSelectionChange(e) {
+    //     this.setState({ lodgingSelection: e.target.value })
+    // }
 
-    handleSiteSelectionChange(e) {
-        this.setState({ siteSelection: e.target.value })
-    }
+    // handleSiteSelectionChange(e) {
+    //     this.setState({ siteSelection: e.target.value })
+    // }
     render() {
         if (this.state.selectedRoute !== undefined) {
             return (
@@ -50,7 +51,7 @@ class RouteCampgrounds extends React.Component {
                     <div className="card">
                         <h2 className="card-header">Day {this.state.currentDay}</h2>
                         <div className="card-body">
-                            <LodgTypeSelection onChange={this.handleLodgTypeSelectionChange} />
+                            <LodgTypeSelection selectedRoute={this.state.selectedRoute} onChange={this.handleLodgTypeSelectionChange} currentDay={this.state.currentDay}/>
                             <br />
                             {/* --SELECT PREFERRED LODGING LOCATION */}
                             <LodgingSelection onChange={this.handleLodgingSelectionChange} fetchLodgings={this.fetchLodgings} 
