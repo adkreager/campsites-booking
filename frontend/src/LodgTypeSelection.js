@@ -8,7 +8,6 @@ const LodgTypeSelection = (props) => {
           <option disabled selected hidden></option>
           <option value='campground'>Campground</option>
           <option value='hotel'>Hotel</option>
-          <option value='both'>Both</option>
         </select>
       </div>
     )
