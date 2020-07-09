@@ -36,5 +36,5 @@ const getLodgingsInfo = (request, response) => {
 
 module.exports = {
     getRoutes,
-    getLodgingsInfo
+    getLodgingsInfo,
 }
