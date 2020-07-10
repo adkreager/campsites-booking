@@ -23,26 +23,27 @@ CREATE TABLE t_lodgings (
     daynumber INTEGER NOT NULL,
     lodgingname VARCHAR NOT NULL,
     lodgingtype VARCHAR NOT NULL,
-    isBooked BOOLEAN NOT NULL
+    isBooked BOOLEAN NOT NULL,
+    price REAL NOT NULL
 );
 
-INSERT INTO t_lodgings (routeid, daynumber, lodgingname, lodgingtype, isbooked)
+INSERT INTO t_lodgings (routeid, daynumber, lodgingname, lodgingtype, isbooked, price)
 VALUES 
-(1, 1, 'Madison Campground', 'campground', 'FALSE'), --Madison
-(1, 2, 'Canyon Lodge & Cabins', 'hotel', 'FALSE'), --Canyon Village
-(1, 2, 'Canyon Campground', 'campground', 'FALSE'), --Canyon Village
-(1, 2, 'Moran Lodge', 'hotel', 'FALSE'), --Canyon Village
-(2, 1, 'Madison Campground', 'campground', 'FALSE'), --Madison
-(2, 2, 'Old Faithful Inn', 'hotel', 'FALSE'), --Old Faithful
-(2, 2, 'Old Faithful Lodge', 'hotel', 'FALSE'), --Old Faithful
-(2, 2, 'Old Faithful Snow Lodge', 'hotel', 'FALSE'), --Old Faithful
-(2, 3, 'Grant Village Lodge', 'hotel', 'FALSE'), --Grant Village
-(2, 3, 'Grant Village Campground', 'campground', 'FALSE'), --Grant Village
-(3, 1, 'Lake Village Lodge & Cabins', 'hotel', 'FALSE'), --Lake Village
-(3, 2, 'Pahaska Tepee Resort', 'hotel', 'FALSE'), -- Pahaska Tepees
-(3, 3, 'Roosevelt Lodge & Cabins', 'hotel', 'FALSE'), --Tower Fall
-(3, 3, 'Tower Fall Campground', 'campground', 'FALSE'), --Tower Fall
-(3, 4, 'Norris Campground', 'campground', 'FALSE'); --Museum
+(1, 1, 'Madison Campground', 'campground', 'FALSE', 26.00), --Madison
+(1, 2, 'Canyon Lodge & Cabins', 'hotel', 'FALSE', 150.00), --Canyon Village
+(1, 2, 'Canyon Campground', 'campground', 'FALSE', 54.00), --Canyon Village
+(1, 2, 'Moran Lodge', 'hotel', 'FALSE', 78.00), --Canyon Village
+(2, 1, 'Madison Campground', 'campground', 'FALSE', 26.00), --Madison
+(2, 2, 'Old Faithful Inn', 'hotel', 'FALSE', 300.00), --Old Faithful
+(2, 2, 'Old Faithful Lodge', 'hotel', 'FALSE', 350.00), --Old Faithful
+(2, 2, 'Old Faithful Snow Lodge', 'hotel', 'FALSE', 400.00), --Old Faithful
+(2, 3, 'Grant Village Lodge', 'hotel', 'FALSE', 225.00), --Grant Village
+(2, 3, 'Grant Village Campground', 'campground', 'FALSE', 50.00), --Grant Village
+(3, 1, 'Lake Village Lodge & Cabins', 'hotel', 'FALSE', 225.00), --Lake Village
+(3, 2, 'Pahaska Tepee Resort', 'hotel', 'FALSE', 150.00), -- Pahaska Tepees
+(3, 3, 'Roosevelt Lodge & Cabins', 'hotel', 'FALSE', 99.99), --Tower Fall
+(3, 3, 'Tower Fall Campground', 'campground', 'FALSE', 45.00), --Tower Fall
+(3, 4, 'Norris Campground', 'campground', 'FALSE', 35.00); --Museum
 
 CREATE TABLE t_availability (
     lodgingid INT NOT NULL,
