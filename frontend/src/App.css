@@ -33,5 +33,17 @@ ul {
 
 #top-card {
   display: flex;
+  flex-direction: column;
   align-items: baseline;
+}
+#drops {
+  display: flex;
+}
+
+.output-card {
+  border: none;
+}
+
+a:focus {
+  color: green;
 }
