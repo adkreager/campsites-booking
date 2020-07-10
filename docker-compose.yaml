@@ -12,7 +12,7 @@ services:
             POSTGRES_DB: booking
 
         ports: 
-            - '3001:3001'
+            - '3006:3006'
 
     client:
         build: frontend/
@@ -23,7 +23,7 @@ services:
             - './frontend:/web'
             - '/web/node_modules'
         ports:
-            - '3000:3000'
+            - '3007:3007'
         stdin_open: true
 
     database:
