@@ -25,4 +25,5 @@ app.get('/', (request, response) => {
 
 app.get('/routes', queries.getRoutes)
 app.get('/lodging/:id/:day/:type', queries.getLodgingsInfo)
-app.get('/room/:lodgingid/:day', queries.getRoomsOrSites)
+// app.get('/room/:lodgingid/:day', queries.getRoomsOrSites)
+app.put('/book', queries.putBookedDate)
