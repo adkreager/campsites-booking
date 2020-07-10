@@ -23,7 +23,6 @@ const getLodgingsInfo = (request, response) => {
     let day = request.params.day
     let type = request.params.type
 
-    //gets all of the lodgings for a route on a day number and of a certain type
     connection.query('SELECT * FROM t_lodgings WHERE routeid=$1 AND daynumber=$2 AND lodgingtype=$3', [id, day, type], (error, results) => {
         if (error) {
             throw error
@@ -33,27 +32,18 @@ const getLodgingsInfo = (request, response) => {
 }
 
 const putBookedDate = (request, response) => {
-    let 
-    connection.query('UPDATE t_availability SET isbooked=true WHERE routeid=$1 AND lodgingid=$2')
+    let lodgingid = request.params.id
+    connection.query('UPDATE t_lodgings SET isbooked=true WHERE lodgingid=$1', [lodgingid], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.send(`Successfully booked lodging ${lodgingid}`)
+    })
 }
 
-// //GET LIST OF ROOMS OR SITES BASED ON THE LODGING CHOSEN
-//// Would have added this, and error handling, but ran out of time
-// const getRoomsOrSites = (request, response) => {
-//     let lodgingid = request.params.lodgingid
-//     let day = request.params.day
-    
-//     connection.query('SELECT * FROM t_availability WHERE lodgingid = $1 AND bookdate = $2', [lodgingid, day], (error, results) => {
-//         if (error) {
-//             throw error
-//         }
-//         response.status(200).json(results.rows)
-//     })
-// }
 
 module.exports = {
     getRoutes,
     getLodgingsInfo,
-    // getRoomsOrSites,
     putBookedDate
 }
