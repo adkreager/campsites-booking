@@ -21,9 +21,6 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-// app.put('/book', queries.bookCampRoute)
-
 app.get('/routes', queries.getRoutes)
 app.get('/lodging/:id/:day/:type', queries.getLodgingsInfo)
-// app.get('/room/:lodgingid/:day', queries.getRoomsOrSites)
-app.put('/book', queries.putBookedDate)
+app.put('/book/:id', queries.putBookedDate)
