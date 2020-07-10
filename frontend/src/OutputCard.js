@@ -8,7 +8,6 @@ const OutputCard = (props) => {
             if (parseInt(props.lodgingSelection) === props.lodging[i].lodgingid) {
                 lodgName = props.lodging[i].lodgingname
                 price = props.lodging[i].price
-                // props.setTotal(price)
             }
         }
         return (
