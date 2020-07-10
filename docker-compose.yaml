@@ -22,6 +22,9 @@ services:
         volumes:
             - './frontend:/web'
             - '/web/node_modules'
+        environment:
+            - filePath="http://host.docker.internal:3007/"
+            - PORT=3007
         ports:
             - '3007:3007'
         stdin_open: true
