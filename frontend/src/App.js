@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   async fetchRoutes() {
-    await fetch('http://localhost:3001/routes')
+    await fetch('http://localhost:3006/routes')
       .then((response) => response.json())
       .then((json) => { this.setState({ routes: json }) })
   }

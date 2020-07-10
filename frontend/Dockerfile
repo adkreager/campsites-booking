@@ -10,6 +10,6 @@ RUN npm install react-scripts
 
 COPY . /web/
 
-EXPOSE 3000
+EXPOSE 3007
 
 CMD ["npm", "start"]

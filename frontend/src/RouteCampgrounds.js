@@ -20,7 +20,7 @@ class RouteCampgrounds extends React.Component {
     }
 
     fetchLodgings(id, day, type) {
-        fetch(`http://localhost:3001/lodging/${id}/${day}/${type}`)
+        fetch(`http://localhost:3006/lodging/${id}/${day}/${type}`)
             .then((response) => response.json())
             .then((json) => { this.setState({ lodging: json }) })
     }

@@ -12,7 +12,7 @@ class RoutesList extends React.Component {
           id: lodgingid,
         }
     
-        await fetch(`http://localhost:3001/book/${data.id}`, {
+        await fetch(`http://localhost:3006/book/${data.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
