@@ -7,7 +7,7 @@ const LodgingSelection = (props) => {
       <label htmlFor="lodging">Lodging...</label> <br />
         <select name='lodging' id='lodging' onChange={props.onChange}>
           <option disabled selected hidden></option>
-          {props.lodging.map(lodge => <option value={lodge.lodgingid}>{lodge.lodgingname}</option>)}
+          {props.lodging.map(lodge => <option value={lodge.lodgingid}>{lodge.lodgingname} ${lodge.price}</option>)}
         </select>
       </div>
     )
