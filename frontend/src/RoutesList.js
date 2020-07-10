@@ -3,9 +3,6 @@ import RouteCampgrounds from './RouteCampgrounds'
 
 //Displays all of the potential routes you could take
 class RoutesList extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     async postBookedStatus(lodgingid) {
         let data = {
